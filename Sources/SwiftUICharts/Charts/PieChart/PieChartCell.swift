@@ -5,7 +5,8 @@ struct PieSlice: Identifiable {
     var id = UUID()
     var startDeg: Double
     var endDeg: Double
-    var value: Double
+    var stringValue: String
+    var doubleValue: Double
 }
 
 /// A single row of data, a view in a `PieChart`

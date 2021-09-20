@@ -11,13 +11,15 @@ public struct PieChartRow: View {
         var tempSlices: [PieSlice] = []
         var lastEndDeg: Double = 0
         let maxValue: Double = chartData.points.reduce(0, +)
+        var counter = 0
         
         for slice in chartData.points {
             let normalized: Double = Double(slice) / (maxValue == 0 ? 1 : maxValue)
             let startDeg = lastEndDeg
             let endDeg = lastEndDeg + (normalized * 360)
             lastEndDeg = endDeg
-            tempSlices.append(PieSlice(startDeg: startDeg, endDeg: endDeg, value: slice))
+            tempSlices.append(PieSlice(startDeg: startDeg, endDeg: endDeg, stringValue: chartData.values[counter], doubleValue: slice))
+            counter += 1
         }
         
         return tempSlices
@@ -28,7 +30,8 @@ public struct PieChartRow: View {
             if oldValue != currentTouchedIndex {
                 chartValue.interactionInProgress = currentTouchedIndex != -1
                 guard currentTouchedIndex != -1 else { return }
-                chartValue.currentDoubleValue = slices[currentTouchedIndex].value
+                chartValue.currentStringValue = slices[currentTouchedIndex].stringValue
+                chartValue.currentDoubleValue = slices[currentTouchedIndex].doubleValue
             }
         }
     }
