@@ -12,7 +12,8 @@ public enum ChartLabelType {
 /// A chart may contain any number of labels in pre-set positions based on their `ChartLabelType`
 public struct ChartLabel: View {
     @EnvironmentObject var chartValue: ChartValue
-    @State var textToDisplay:String = ""
+    @State var primaryTextToDisplay: String = ""
+    @State var secondaryTextToDisplay:String = ""
     var format: String = "%.01f"
 
     private var title: String
@@ -88,16 +89,22 @@ public struct ChartLabel: View {
 	/// Displays current value if chart is currently being touched along a data point, otherwise the specified text.
     public var body: some View {
         HStack {
-            Text(textToDisplay)
+            Text(primaryTextToDisplay)
                 .font(.system(size: labelSize))
                 .bold()
                 .foregroundColor(self.labelColor)
-                .padding(self.labelPadding)
+                .onReceive(self.chartValue.objectWillChange) { _ in
+                    self.primaryTextToDisplay = self.chartValue.interactionInProgress && !self.chartValue.currentStringValue.isEmpty ? self.chartValue.currentStringValue + ":" : ""
+                }
+            Text(secondaryTextToDisplay)
+                .font(.system(size: labelSize))
+                .bold()
+                .foregroundColor(self.labelColor)
                 .onAppear {
-                    self.textToDisplay = self.title
+                    self.secondaryTextToDisplay = self.title
                 }
                 .onReceive(self.chartValue.objectWillChange) { _ in
-                    self.textToDisplay = self.chartValue.interactionInProgress ? String(format: format, self.chartValue.currentValue) : self.title
+                    self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? String(format: format, self.chartValue.currentDoubleValue) : self.title
                 }
             if !self.chartValue.interactionInProgress {
                 Spacer()

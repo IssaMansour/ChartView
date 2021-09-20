@@ -89,7 +89,8 @@ extension Line {
         let geometryWidth = geometry.frame(in: .local).width
         let index = Int(round((touchLocation.x / geometryWidth) * CGFloat(chartData.points.count - 1)))
         if (index >= 0 && index < self.chartData.data.count){
-            self.chartValue.currentValue = self.chartData.points[index]
+            self.chartValue.currentStringValue = self.chartData.values[index]
+            self.chartValue.currentDoubleValue = self.chartData.points[index]
         }
     }
 }

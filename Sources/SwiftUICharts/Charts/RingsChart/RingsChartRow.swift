@@ -60,7 +60,7 @@ public struct RingsChartRow: View {
 							self.touchRadius = sqrt(deltaX*deltaX + deltaY*deltaY) // Pythagorean equation
 
 							if let currentValue = self.getCurrentValue(maxRadius: radius) {
-								self.chartValue.currentValue = currentValue
+								self.chartValue.currentDoubleValue = currentValue
 								self.chartValue.interactionInProgress = true
 							}
 						})

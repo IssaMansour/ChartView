@@ -40,7 +40,7 @@ public struct BarChartRow: View {
                     let width = geometry.frame(in: .local).width
                     self.touchLocation = value.location.x/width
                     if let currentValue = self.getCurrentValue(width: width) {
-                        self.chartValue.currentValue = currentValue
+                        self.chartValue.currentDoubleValue = currentValue
                         self.chartValue.interactionInProgress = true
                     }
                 })

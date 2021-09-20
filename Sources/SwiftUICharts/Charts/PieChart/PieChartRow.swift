@@ -28,7 +28,7 @@ public struct PieChartRow: View {
             if oldValue != currentTouchedIndex {
                 chartValue.interactionInProgress = currentTouchedIndex != -1
                 guard currentTouchedIndex != -1 else { return }
-                chartValue.currentValue = slices[currentTouchedIndex].value
+                chartValue.currentDoubleValue = slices[currentTouchedIndex].value
             }
         }
     }
