@@ -89,23 +89,25 @@ public struct ChartLabel: View {
 	/// Displays current value if chart is currently being touched along a data point, otherwise the specified text.
     public var body: some View {
         HStack {
-            Text(primaryTextToDisplay)
-                .font(.system(size: labelSize))
-                .bold()
-                .foregroundColor(self.labelColor)
-                .onReceive(self.chartValue.objectWillChange) { _ in
-                    self.primaryTextToDisplay = self.chartValue.interactionInProgress && !self.chartValue.currentStringValue.isEmpty ? self.chartValue.currentStringValue + ":" : ""
-                }
-            Text(secondaryTextToDisplay)
-                .font(.system(size: labelSize))
-                .bold()
-                .foregroundColor(self.labelColor)
-                .onAppear {
-                    self.secondaryTextToDisplay = self.title
-                }
-                .onReceive(self.chartValue.objectWillChange) { _ in
-                    self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? String(format: format, self.chartValue.currentDoubleValue) : self.title
-                }
+            HStack(spacing: 4.0) {
+                Text(primaryTextToDisplay)
+                    .font(.system(size: labelSize))
+                    .bold()
+                    .foregroundColor(self.labelColor)
+                    .onReceive(self.chartValue.objectWillChange) { _ in
+                        self.primaryTextToDisplay = self.chartValue.interactionInProgress && !self.chartValue.currentStringValue.isEmpty ? self.chartValue.currentStringValue + ":" : ""
+                    }
+                Text(secondaryTextToDisplay)
+                    .font(.system(size: labelSize))
+                    .bold()
+                    .foregroundColor(self.labelColor)
+                    .onAppear {
+                        self.secondaryTextToDisplay = self.title
+                    }
+                    .onReceive(self.chartValue.objectWillChange) { _ in
+                        self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? String(format: format, self.chartValue.currentDoubleValue) : self.title
+                    }
+            }
             if !self.chartValue.interactionInProgress {
                 Spacer()
             }
