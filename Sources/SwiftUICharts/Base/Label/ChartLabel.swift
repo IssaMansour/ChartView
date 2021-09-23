@@ -90,6 +90,7 @@ public struct ChartLabel: View {
     public var body: some View {
         HStack {
             HStack(spacing: 4.0) {
+                Spacer()
                 Text(primaryTextToDisplay)
                     .font(.system(size: labelSize))
                     .bold()
@@ -107,6 +108,7 @@ public struct ChartLabel: View {
                     .onReceive(self.chartValue.objectWillChange) { _ in
                         self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? String(format: format, self.chartValue.currentDoubleValue) : self.title
                     }
+                Spacer()
             }
             if !self.chartValue.interactionInProgress {
                 Spacer()
