@@ -106,7 +106,7 @@ public struct ChartLabel: View {
                         self.secondaryTextToDisplay = self.title
                     }
                     .onReceive(self.chartValue.objectWillChange) { _ in
-                        self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? String(format: format, self.chartValue.currentDoubleValue) : self.title
+                        self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? self.chartValue.currentDoubleValue.toCurrency() : self.title
                     }
                 Spacer()
             }
