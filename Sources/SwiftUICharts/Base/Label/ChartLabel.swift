@@ -17,6 +17,7 @@ public struct ChartLabel: View {
     var format: String = "%.01f"
 
     private var title: String
+    private var currencyCode: String
 
 	/// Label font size
 	/// - Returns: the font size of the label
@@ -77,9 +78,11 @@ public struct ChartLabel: View {
 	///   - title: Any `String`
 	///   - type: Which `ChartLabelType` to use
     public init (_ title: String,
+                 currencyCode: String = "usd",
                  type: ChartLabelType = .title,
                  format: String = "%.01f") {
         self.title = title
+        self.currencyCode = currencyCode
         labelType = type
         self.format = format
     }
@@ -106,7 +109,7 @@ public struct ChartLabel: View {
                         self.secondaryTextToDisplay = self.title
                     }
                     .onReceive(self.chartValue.objectWillChange) { _ in
-                        self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? self.chartValue.currentDoubleValue.toCurrency() : self.title
+                        self.secondaryTextToDisplay = self.chartValue.interactionInProgress ? self.chartValue.currentDoubleValue.toCurrency(currencyCode) : self.title
                     }
                 Spacer()
             }
