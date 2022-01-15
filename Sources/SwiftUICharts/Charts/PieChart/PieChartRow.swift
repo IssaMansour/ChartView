@@ -30,6 +30,9 @@ public struct PieChartRow: View {
             if oldValue != currentTouchedIndex {
                 chartValue.interactionInProgress = currentTouchedIndex != -1
                 guard currentTouchedIndex != -1 else { return }
+                if self.chartValue.currentDoubleValue != slices[currentTouchedIndex].doubleValue {
+                    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                }
                 chartValue.currentStringValue = slices[currentTouchedIndex].stringValue
                 chartValue.currentDoubleValue = slices[currentTouchedIndex].doubleValue
             }
