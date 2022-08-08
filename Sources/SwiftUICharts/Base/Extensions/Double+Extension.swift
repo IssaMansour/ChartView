@@ -26,6 +26,14 @@ extension Double {
         }
 
         let result = formatter.string(from: self as NSNumber)
-        return result ?? String(self)
+
+        switch currencyCode {
+            case "◎":
+                return String(self) + " ◎"
+            case "":
+                return String(format: "%.0f", self) // Mostly to remove decimal (Int cases)
+            default:
+                return result ?? String(self)
+        }
     }
 }
